@@ -10,7 +10,7 @@ import { PresupuestosService } from '../../servicios/presupuestos.service';
 export class PresupuestosComponent implements OnInit {
 
   presupuestos: any[] = [];
-  paginaActual: number = 1;
+  primeraPagina: number = 1;
   constructor(private presupuestosService: PresupuestosService) {
     this.presupuestosService.getPresupuestos()
     .subscribe(presupuestos => {
@@ -19,7 +19,6 @@ export class PresupuestosComponent implements OnInit {
       p.id$ = id$;
       this.presupuestos.push(presupuestos[id$]);
     }
-
     })
   }
 

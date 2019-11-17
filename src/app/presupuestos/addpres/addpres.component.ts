@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from'@angular/forms';
+import {  FormGroup, FormBuilder, Validators } from'@angular/forms';
 import { PresupuestosService } from '../../servicios/presupuestos.service';
+import { from } from 'rxjs';
+
 
 
 
@@ -26,8 +28,8 @@ export class AddpresComponent implements OnInit {
       concepto: ['', [Validators.required, Validators.minLength(10)]],
       base: ['', Validators.required ],
       tipo: ['', Validators.required ],
-      iva: {value: this.iva} , 
-      total: {value: this.total}
+      iva: {value: this.iva, disabled: true} , 
+      total: {value: this.total, disabled: true}
     });
     this.onChanges();
   }

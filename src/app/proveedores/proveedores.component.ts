@@ -9,11 +9,35 @@ import { ProveedoresService } from '../servicios/proveedores.service';
 export class ProveedoresComponent implements OnInit {
 
   mensaje: string;
-  proveedores: any;
-  constructor(private proveedoresService: ProveedoresService) { }
+  proveedores: any[]=[];
+  primeraPagina: number=1;
+  constructor(private proveedoresService: ProveedoresService) { 
+    this.proveedoresService.getProveedores()
+    .subscribe(proveedores => {
+      for ( const id$ in proveedores) {
+      const p = proveedores[id$];
+      p.id$ = id$;
+      this.proveedores.push(proveedores[id$]);
+    }
+    })
+  }
+
+  eliminarProveedor(id$) {
+    this.proveedoresService.delProveedor(id$)
+      .subscribe(res => {
+        this.proveedores = [];
+        this.proveedoresService.getProveedores()
+          .subscribe(proveedores => {
+            for (const id$ in proveedores) {
+              const p = proveedores[id$];
+              p.id$ = id$;
+              this.proveedores.push(proveedores[id$]);
+            }
+          })
+      });
+  }
 
   ngOnInit() {
-    this.proveedores = this.proveedoresService.getProveedores();
   }
 
 }
